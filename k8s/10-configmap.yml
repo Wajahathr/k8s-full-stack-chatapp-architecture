@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fake-frontend-html
+  namespace: chat-app
+data:
+  index.html: |
+    <html>
+      <body>
+        <h1>Chat App API is Running Successfully!</h1>
+      </body>
+    </html>

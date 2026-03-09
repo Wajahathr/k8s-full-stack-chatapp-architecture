@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-backend
+  namespace: chat-app
+spec:
+  replicas: 2 # Backend ke 2 pods banayenge high availability ke liye
+  selector:
+    matchLabels:
+      app: chat-backend
+  template:
+    metadata:
+      labels:
+        app: chat-backend
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - my-k8-cluster-worker2 # Sirf Worker 2 par jayega
+      containers:
+      - name: backend
+        image: wajahathr/mern-backend:v1
+        ports:
+        - containerPort: 5001
+        env:
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: chat-db-secret
+              key: MONGO_URI
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: chat-db-secret
+              key: JWT_SECRET
+        - name: PORT
+          value: "5001"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: html-volume
+          mountPath: /frontend/dist # Exact wohi path jo error mein tha
+      volumes:
+      - name: html-volume
+        configMap:
+          name: fake-frontend-html
