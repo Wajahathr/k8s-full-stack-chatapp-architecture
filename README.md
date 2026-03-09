@@ -1,243 +1,88 @@
-[![Fork Button](https://img.shields.io/github/forks/iemafzalhassan/full-stack_chatApp?style=social)](https://github.com/iemafzalhassan/full-stack_chatApp/fork)
+# 🚀 Enterprise-Grade Kubernetes Architecture: MERN Chat Application
 
-
-# Real-Time Chat Application
-
-
-Welcome to the **Full Stack Realtime Chat App** project, where we're building a scalable and secure real-time chat experience using the latest technologies. Whether you're a seasoned developer or a beginner, we invite you to contribute and be a part of this exciting journey!
-
-## Table of Contents
-
-
-* [Introduction](#introduction)
-* [Features](#features)
-* [Tech Stack](#tech-stack)
-* [Getting Started](#getting-started)
-* [Building the Backend](#building-the-backend)
-* [Running the Application](#running-the-application)
-* [Contributing](#contributing)
-* [Future Plans](#future-plans)
-* [License](#license)
-
-## 📝 Introduction
-
-This project aims to provide a real-time chat experience that's both scalable and secure. With a focus on modern technologies, we're building an application that's easy to use and maintain.
-
-## ✨ Features
-
-
-* **Real-time Messaging**: Send and receive messages instantly using Socket.io 
-* **User Authentication & Authorization**: Securely manage user access with JWT 
-* **Scalable & Secure Architecture**: Built to handle large volumes of traffic and data 
-* **Modern UI Design**: A user-friendly interface crafted with React and TailwindCSS 
-* **Profile Management**: Users can upload and update their profile pictures 
-* **Online Status**: View real-time online/offline status of users 
-
-
-## 🛠️ Tech Stack
-
-
-* **Backend:** Node.js, Express, MongoDB, Socket.io
-* **Frontend:** React, TailwindCSS
-* **Containerization:** Docker
-* **Orchestration:** Kubernetes (planned)
-* **Web Server:** Nginx
-* **State Management:** Zustand
-* **Authentication:** JWT
-* **Styling Components:** DaisyUI
-
-
-### 🔧 Prerequisites
-
-
-* **[Node.js](https://nodejs.org/)** (v14 or higher)
-* **[Docker](https://www.docker.com/get-started)** (for containerizing the app)
-* **[Git](https://git-scm.com/downloads)** (to clone the repository)
-
-
-### 📝 Environment Configuration
-
-Create a `.env` file in the root directory with the following configuration:
-
-```env
-# Database Configuration
-MONGODB_URI=mongodb://root:admin@mongo:27017/chatApp?authSource=admin&retryWrites=true&w=majority
-
-# JWT Configuration
-JWT_SECRET=your_jwt_secret_key
-
-# Server Configuration
-PORT=5001
-NODE_ENV=production
-```
-
-> **Note:** 
-> - Replace `your_jwt_secret_key` with a strong secret key
-> - For local development without Docker, change `MONGODB_URI` to `mongodb://localhost:27017/chatApp`
-> - You can use command ```echo "Text what you want" | base64
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/iemafzalhassan/full-stack_chatApp.git
-```
-
-🏗️ Build and Run the Application
-
-Follow these steps to build and run the application:
-
-1. Build & Run the Containers:
-
-```bash
-cd full-stack_chatApp
-```
-```bash
-docker-compose up -d --build
-```
-
-2. Access the application in your browser:
-
-```
-http://localhost
-```
----
-
-## 🛠️ Getting Started
-
-Follow these simple steps to get the project up and running on your local Host using docker.
-
-```bash
-git clone https://github.com/iemafzalhassan/full-stack_chatApp.git
-```
-
-```bash
-cd full-stack_chatApp
-```
-## Create a Docker network:
-
-```bash
-docker network create full-stack
-```
-
-## 🛠️ Building the Frontend
-
-```bash
-cd frontend
-```
-
-```bash
-docker build -t full-stack_frontend .
-```
-
-### Run the Frontend container:
-
-```bash
-docker run -d --network=full-stack  -p 5173:5173 --name frontend full-stack_frontend:latest
-```
-#### The frontend will now be accessible on port 5173.
-
-
-## Run the MongoDB Container:
-
-```bash
-docker run -d -p 27017:27017 --name mongo mongo:latest
-```
----
-
-## 🛠️ Building the Backend
-
-```bash
-cd backend
-```
-
-### Build the Backend image:
-
-```bash
-docker build -t full-stack_backend .
-```
-
-### Run the Backend container:
-
-```bash
-docker run -d --network=full-stack --add-host=host.docker.internal:host-gateway -p 5001:5001 --env-file .env full-stack_backend
-```
-#### This will build and run the backend container, exposing the backendAPI on port 5001.
-
-`Backend API: http://localhost:5001`
-
-### To Verify the conncetion between backend and databse:
-```bash
-docker-compose logs -f
-```
-
-### Once the backend and frontend containers are running, you can access the application in your browser:
-
-`Frontend: http://localhost`
-
-
-You can now interact with the real-time chat app and start messaging!
+This repository contains the complete Kubernetes (K8s) infrastructure and deployment configurations for a Full-Stack Real-Time Chat Application. The primary focus of this project is to design a highly decoupled, scalable, and secure microservices architecture using Kubernetes best practices.
 
 ---
 
-
-
-### 🤝 Contributing
-
-
-We welcome contributions from DevOps & Developer of all skill levels! Here's how you can contribute:
-
-**Report bugs:** If you encounter any bugs or issues, please open an issue with detailed information.
-**Suggest features:** Have an idea for a new feature? Open an issue to discuss it with the community.
-**Submit pull requests:** If you have a fix or a feature you'd like to contribute, submit a pull request. Ensure your changes pass any linting or tests, if applicable.
-
-### 🌐 Join the Community
-
-We invite you to join our community of developers and contributors. Let's work together to build an amazing real-time chat application!
-
-* **Star this repository** to show your support
-* **Fork this repository** to contribute to the project
-* **Open an issue** to report bugs or suggest features
-* **Submit a pull request** to contribute code changes
-
-## 🔮 Future Plans
-
-
-This project is evolving, and here are a few exciting things on the horizon:
-
-* [ ] **CI/CD Pipelines:** Implement Continuous Integration and Continuous Deployment pipelines to automate testing and deployment.
-* [ ] **Kubernetes (K8s):** Add Kubernetes manifests for container orchestration to deploy the app on cloud platforms like AWS, GCP, or Azure.
-* [ ] **Feature Expansion:** Add more features like group chats, media sharing, and user status updates.
-* **Stay tuned for updates as we continue to improve and expand this project!**
+## 🛠️ Application Stack (The Workload)
+The core application is built using the MERN stack, containerized via Docker:
+* **Frontend:** React.js (Served via Nginx)
+* **Backend:** Node.js / Express.js (REST API)
+* **Database:** MongoDB
 
 ---
 
-## 📚 Project Snapshots:
+## 🏛️ Kubernetes Architecture & Engineering Highlights
 
-![Settings](frontend/public/settings.png)
+This deployment moves away from monolithic structures and embraces strict workload isolation, persistent storage, and advanced traffic routing.
 
-![chat](frontend/public/chat.png)
+### 1. Workload Isolation (Taints, Tolerations & Affinity)
+To ensure optimal performance and prevent resource starvation, the workloads are strictly pinned to specific worker nodes:
+* **Database Node (Worker 1):** Dedicated solely to MongoDB. Secured using **Node Taints** (`app=database:NoSchedule`) to repel regular pods. The MongoDB pod uses a matching **Toleration** and **Node Affinity** to schedule here.
+* **Application Node (Worker 2):** Dedicated to Stateless apps (Node.js Backend & React Frontend) using strict **Node Affinity**.
 
-![logout](/frontend/public/logout.png)
+### 2. Stateful Storage Management
+* **StatefulSet:** MongoDB is deployed as a `StatefulSet` (rather than a Deployment) to maintain a sticky identity and stable hostname (`mongodb-0`).
+* **Persistent Volume Claim (PVC):** Ensures chat data survives pod restarts and crashes by dynamically provisioning persistent storage mounted at `/data/db`.
 
-![Login](/frontend/public/login.png)
+### 3. Configuration & Security
+* **Kubernetes Secrets:** Sensitive data like MongoDB URIs, Root Passwords, and JWT Secrets are base64 encoded and securely injected into the backend pods as Environment Variables.
+* **ConfigMaps (The Monolith Hack):** A `ConfigMap` is creatively used to mount a dummy `index.html` file directly into the backend container's `/frontend/dist/` directory, resolving legacy monolith path dependencies (`ENOENT` errors) without rebuilding Docker images.
 
+### 4. Networking & Traffic Routing
+* **ClusterIP Services:** Used for internal, secure communication (e.g., Backend communicating with MongoDB).
+* **Nginx Ingress Controller:** Acts as the cluster gateway. An `Ingress` resource is configured as a catch-all (`rewrite-target: /`) to elegantly route external Port 80 traffic directly to the Frontend service, eliminating the need for exposed NodePorts in production.
 
+### 5. Resilience & Resource Allocation
+* **Resource Quotas:** Every container (Frontend, Backend, DB) has strict `limits` and `requests` for CPU and Memory to prevent memory leaks from crashing the nodes.
+* **Probes:** Configured readiness and liveness checks to ensure traffic is only sent to healthy pods, triggering automatic restarts (`CrashLoopBackOff` mitigation) when the app hangs.
 
-## 📜 License
+---
 
+## 🚀 How to Deploy
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+**Prerequisites:**
+* A running Kubernetes Cluster (e.g., KIND, Minikube, EKS, or EC2 hosted).
+* `kubectl` installed and configured.
+* Nginx Ingress Controller installed on the cluster.
 
+### **Deployment Commands:**
 
+Follow this sequence to ensure dependencies are met:
 
+**1. Apply the Secret:** (Ensure to add your base64 encoded credentials first)
+```bash
+kubectl apply -f k8s/01-mongo-secret.yml
+2. Deploy the Database Layer:
 
+Bash
+kubectl apply -f k8s/02-mongo-pvc.yml
+kubectl apply -f k8s/03-mongo-statefulset.yml
+kubectl apply -f k8s/04-mongo-svc.yml
+3. Deploy the Configuration Hack:
 
+Bash
+kubectl apply -f k8s/10-configmap.yml
+4. Deploy the Application Layer (Backend & Frontend):
 
+Bash
+kubectl apply -f k8s/05-backend-deployment.yml
+kubectl apply -f k8s/06-backend-svc.yml
+kubectl apply -f k8s/07-frontend-deployment.yml
+kubectl apply -f k8s/08-frontend-svc.yml
+5. Apply the Ingress Rules:
 
+Bash
+kubectl apply -f k8s/09-ingress.yml
+🔍 Verification
+To check if all components are running correctly:
 
+Bash
+# Check Pods and Nodes
+kubectl get pods -o wide
+kubectl get nodes --show-labels
 
-
-
-
-
-
+# Check Ingress
+kubectl get ingress
+👨‍💻 Author
+Wajahat Rasool DevOps & Cloud Computing Specialist
