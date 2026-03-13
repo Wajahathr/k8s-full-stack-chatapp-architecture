@@ -1,0 +1,11 @@
+# Web code ko language stats se hide karne ke liye
+*.js linguist-vendored
+*.jsx linguist-vendored
+*.css linguist-vendored
+*.html linguist-vendored
+*.json linguist-vendored
+
+# Kubernetes Manifests (YAML) aur Dockerfile ko highlight karne ke liye
+*.yaml linguist-detectable=true
+*.yml linguist-detectable=true
+Dockerfile linguist-detectable=true
